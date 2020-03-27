@@ -1,0 +1,3 @@
+install-mosip-kernel.sh
+install-mosip-pre-reg.sh
+
