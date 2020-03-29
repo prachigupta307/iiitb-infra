@@ -1,9 +1,9 @@
-#Installing KVM and Configuring	
+# Installing KVM and Configuring	
 
 This is the log of Installing KVM and Configuring it.
 
 
-##Pre-requisites
+## Pre-requisites
 Checking whether the current machine supports hardware virtualization or not
 
 '''
@@ -24,7 +24,7 @@ KVM acceleration can be used
 
 It indicates that current system supports kvm
 
-##Install KVM
+## Install KVM
 Run the below apt commands to install KVM and its dependencies
 
 '''
@@ -33,7 +33,7 @@ $ sudo apt install qemu qemu-kvm libvirt-bin  bridge-utils  virtinst
 '''
 Once the above packages are installed successfully, then your local user  will be added to the group libvirtd automatically.
 
-##Start & enable libvirtd service
+## Start & enable libvirtd service
 libvirtd service will be active automatically, now verify the status of libvirtd service using below command
 
 '''
@@ -57,7 +57,7 @@ $ sudo service libvirtd start
 $ sudo update-rc.d libvirtd enable
 '''
 
-##Configure Network Bridge for KVM virtual Machines(Failed)
+## Configure Network Bridge for KVM virtual Machines(Failed)
 
 check the network existing networking connection using
 
