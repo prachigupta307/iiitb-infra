@@ -1,0 +1,19 @@
+@startuml
+actor HumanDeployer
+control ControlBox
+entity K8MasterBox
+entity K8Pod
+
+HumanDeployer -> ControlBox : Login
+HumanDeployer -> ControlBox : co git repo
+
+ControlBox -> K8MasterBox : Instanciate KVM (ansible action)
+
+ControlBox -> K8MasterBox : Install K8Master docker Image
+activate K8MasterBox
+ControlBox -> K8MasterBox : Start K8Master
+K8MasterBox -> K8Pod : Start Pod
+activate K8Pod
+deactivate K8MasterBox
+
+@enduml
