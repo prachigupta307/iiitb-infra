@@ -2,7 +2,7 @@
 
 pwd
 
-path="/home/${USER}/code/mosip-infra/deployment/sandbox/playbooks-properties"
+path="/home/mosipiiitb/code/mosip-infra/deployment/sandbox/playbooks-properties"
 
 echo "$path"
 
@@ -12,7 +12,7 @@ cd ../mosip-infra/deployment/sandbox/
 
 : > install-mosip-sandbox.log
 
-source_file="/home/${USER}/iiitb-infra/mosip-installation-list.txt"
+source_file="/home/mosipiiitb/iiitb-infra/mosip-installation-list.txt"
 
 filecount=1
 
