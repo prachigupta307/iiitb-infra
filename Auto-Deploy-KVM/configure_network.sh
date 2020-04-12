@@ -7,8 +7,6 @@ yum update -y
 
 # Installing apache web server
 
-yum update -y httpd
-
 yum install -y httpd
 
 firewall-cmd --permanent --add-service=http
