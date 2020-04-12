@@ -19,5 +19,5 @@ Run both scripts with sudo
 
 ## Pre-requisites to run install_run.sh
 
-1. Please put the OS image in /osmedia folder
+1. Create the folder called 'osmedia' and put the OS image in /osmedia folder
 
