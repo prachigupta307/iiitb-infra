@@ -17,7 +17,7 @@ Run both scripts with sudo
 6. Configures bridge
 7. Restarts the system
 
-##Pre-requisites to run install_run.sh
+## Pre-requisites to run install_run.sh
 
 1. Please put the OS image in /osmedia folder
 
