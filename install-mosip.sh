@@ -6,13 +6,13 @@ path="/home/mosipiiitb/code/mosip-infra/deployment/sandbox/playbooks-properties"
 
 echo "$path"
 
-cp ../mosip-setup/all-playbooks.properties "$path"
+cp all-playbooks.properties "$path"
 
-cd mosip-infra/deployment/sandbox/
+cd ../mosip-infra/deployment/sandbox/
 
 : > install-mosip-sandbox.log
 
-source_file="/home/mosipiiitb/mosip-setup/mosip-installation-list.txt"
+source_file="/home/mosipiiitb/iiitb-infra/mosip-installation-list.txt"
 
 filecount=1
 
