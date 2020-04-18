@@ -1,0 +1,277 @@
+@startuml
+
+
+rectangle Central_Zone {
+
+rectangle Ingress
+note top of Ingress
+Single entry point to Zone/Cluster.
+Routes the traffic to appropriate
+service.
+endnote
+
+rectangle South_Kube_Masters {
+
+node master1 [
+<b>Master 1</b>
+--
+Api Manager
+--
+Controller - Manager
+--
+Scheduler (L)
+--
+etcd
+]
+
+node master2 [
+<b>Master 2</b>
+--
+Api Manager
+--
+Controller - Manager (L)
+--
+Scheduler
+--
+etcd
+]
+
+node master3 [
+<b>Master 3</b>
+--
+Api Manager
+--
+Controller - Manager
+--
+Scheduler
+--
+etcd (L)
+]
+
+}
+
+rectangle Kubernetes_Load_Balancer [
+Kubernetes_Load_Balancer
+]
+
+rectangle local_backup {
+database backup_reg_proc
+folder backup_packet_store
+folder backup_archive
+folder backup_Landing_Zone
+}
+
+rectangle registration_processor {
+
+rectangle Kernel_Service
+rectangle DMZ_ZONE_Service
+rectangle Secure_Zone_Service
+
+rectangle Server_A {
+node nodeA1 [
+<b>Kernel KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeA2 [
+<b>DMZ Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeA3 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeA4 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+}
+rectangle Server_B {
+
+node nodeB1 [
+<b>Kernel KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeB2 [
+<b>DMZ Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeB3 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeB4 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+
+
+}
+rectangle Server_C {
+node nodeC1 [
+<b>Kernel KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeC2 [
+<b>DMZ Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeC3 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node nodeC4 [
+<b>Secure Zone KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+}
+
+Kernel_Service --> nodeA1 
+Kernel_Service --> nodeB1 
+Kernel_Service --> nodeC1 
+
+DMZ_ZONE_Service --> nodeA2
+DMZ_ZONE_Service --> nodeB2
+DMZ_ZONE_Service --> nodeC2
+
+Secure_Zone_Service --> nodeA3
+Secure_Zone_Service --> nodeA4
+Secure_Zone_Service --> nodeB3
+Secure_Zone_Service --> nodeB4
+Secure_Zone_Service --> nodeC3
+Secure_Zone_Service --> nodeC4
+
+}
+
+registration_processor --> Kubernetes_Load_Balancer : Kubernetes request / message
+Kubernetes_Load_Balancer --> master1 : Kubernetes request / message
+Kubernetes_Load_Balancer --> master2 : Kubernetes request / message
+Kubernetes_Load_Balancer --> master3 : Kubernetes request / message
+registration_processor <-- South_Kube_Masters : Kubernetes action
+
+
+rectangle Abis {
+}
+
+rectangle registration_processor_db_cluster {
+
+rectangle registration_processor_db {
+database master_db [
+<b>Master</b>
+--
+Reg Proc
+]
+database slave1_db [
+<b>Slave</b>
+--
+Reg Proc
+]
+database slave2_db [
+<b>Slave</b>
+--
+Reg Proc
+]
+database slave3_db [
+<b>Slave</b>
+--
+Reg Proc
+]
+database slave4_db [
+<b>Slave</b>
+--
+Reg Proc
+]
+
+master_db --> slave1_db : stream
+master_db --> slave2_db : stream
+master_db --> slave3_db : stream
+master_db --> slave4_db : stream
+}
+folder Hdfs1 [
+<b> HDFS </b>
+--
+Landing Zone
+]
+
+folder Hdfs2 [
+<b> HDFS </b>
+--
+Packet Store
+]
+
+folder Hdfs3 [
+<b> HDFS </b>
+--
+Archive
+]
+}
+Ingress --> DMZ_ZONE_Service : DMZ Request
+registration_processor <--> registration_processor_db_cluster : store / retrieve data
+Abis <--> registration_processor : Deduplication Service
+
+
+
+}
+
+
+@enduml

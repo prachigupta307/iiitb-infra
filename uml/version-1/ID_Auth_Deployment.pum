@@ -1,0 +1,361 @@
+@startuml
+
+rectangle South_ID_AUTH {
+
+rectangle ID_Repo_Service [
+ID Repository Service
+]
+
+rectangle ID_Auth_Service [
+ID Auth Service
+]
+
+rectangle ID_South_Server_A {
+
+node ID_South_nodeA1 [
+<b>ID Auth KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeA2 [
+<b>ID Auth KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeA3 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node ID_South_nodeA4 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+Storage Pod4 {
+
+rectangle ID_South_A_Container2 [
+<b>Container</b>
+--
+ID Repo Services
+]
+}
+
+Storage Pod3 {
+
+rectangle ID_South_A_Container1 [
+<b>Container</b>
+--
+ID Auth Service
+]
+}
+usecase ID_South_A_Pod2 [
+pod3 
+] 
+usecase ID_South_A_Pod3 [
+pod3
+]
+usecase ID_South_A_Pod4 [
+pod3
+]
+usecase ID_South_A_Pod5 [
+pod4
+] 
+usecase ID_South_A_Pod6 [
+pod4
+]
+usecase ID_South_A_Pod7 [
+pod4
+]
+ID_South_nodeA4 --> Pod4 : Runs
+ID_South_nodeA4 --> ID_South_A_Pod7 : Runs
+ID_South_nodeA1 --> Pod3 : Runs
+ID_South_nodeA1 --> ID_South_A_Pod2 : Runs
+
+ID_South_nodeA2 --> ID_South_A_Pod3 : Runs
+ID_South_nodeA2 --> ID_South_A_Pod4 : Runs
+
+ID_South_nodeA3 --> ID_South_A_Pod5 : Runs
+ID_South_nodeA3 --> ID_South_A_Pod6 : Runs
+
+}
+
+ID_Auth_Service --> ID_South_nodeA1 : ID Auth Request
+ID_Auth_Service --> ID_South_nodeA2 
+ID_Repo_Service --> ID_South_nodeA3
+ID_Repo_Service --> ID_South_nodeA4
+
+
+rectangle ID_South_Server_B {
+
+node ID_South_nodeB1 [
+<b>ID Auth KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeB2 [
+<b>ID Auth KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeB3 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node ID_South_nodeB4 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+usecase ID_South_B_Pod1 [
+pod3 
+] 
+usecase ID_South_B_Pod2 [
+pod3 
+] 
+usecase ID_South_B_Pod3 [
+pod3
+]
+usecase ID_South_B_Pod4 [
+pod3
+]
+usecase ID_South_B_Pod5 [
+pod4
+] 
+usecase ID_South_B_Pod6 [
+pod4
+]
+usecase ID_South_B_Pod7 [
+pod4
+]
+usecase ID_South_B_Pod8 [
+pod4
+]
+ID_South_nodeB4 --> ID_South_B_Pod8 : Runs
+ID_South_nodeB4 --> ID_South_B_Pod7 : Runs
+ID_South_nodeB1 --> ID_South_B_Pod1 : Runs
+ID_South_nodeB1 --> ID_South_B_Pod2 : Runs
+
+ID_South_nodeB2 --> ID_South_B_Pod3 : Runs
+ID_South_nodeB2 --> ID_South_B_Pod4 : Runs
+
+ID_South_nodeB3 --> ID_South_B_Pod5 : Runs
+ID_South_nodeB3 --> ID_South_B_Pod6 : Runs
+
+}
+
+ID_Auth_Service --> ID_South_nodeB1 
+ID_Auth_Service --> ID_South_nodeB2 
+ID_Repo_Service --> ID_South_nodeB3
+ID_Repo_Service --> ID_South_nodeB4 : ID Repo Request
+
+rectangle ID_South_Server_C {
+
+node ID_South_nodeC1 [
+<b>ID Auth KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeC2 [
+<b>ID Auth KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node ID_South_nodeC3 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node ID_South_nodeC4 [
+<b>ID Repo KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+usecase ID_South_C_Pod1 [
+pod3 
+] 
+usecase ID_South_C_Pod2 [
+pod3 
+] 
+usecase ID_South_C_Pod3 [
+pod3
+]
+usecase ID_South_C_Pod4 [
+pod3
+]
+usecase ID_South_C_Pod5 [
+pod4
+] 
+usecase ID_South_C_Pod6 [
+pod4
+]
+usecase ID_South_C_Pod7 [
+pod4
+]
+usecase ID_South_C_Pod8 [
+pod4
+]
+ID_South_nodeC4 --> ID_South_C_Pod8 : Runs
+ID_South_nodeC4 --> ID_South_C_Pod7 : Runs
+ID_South_nodeC1 --> ID_South_C_Pod1 : Runs
+ID_South_nodeC1 --> ID_South_C_Pod2 : Runs
+
+ID_South_nodeC2 --> ID_South_C_Pod3 : Runs
+ID_South_nodeC2 --> ID_South_C_Pod4 : Runs
+
+ID_South_nodeC3 --> ID_South_C_Pod5 : Runs
+ID_South_nodeC3 --> ID_South_C_Pod6 : Runs
+
+}
+
+ID_Auth_Service --> ID_South_nodeC1 
+ID_Auth_Service --> ID_South_nodeC2 
+ID_Repo_Service --> ID_South_nodeC3
+ID_Repo_Service --> ID_South_nodeC4 
+}
+
+rectangle South_ID_Repo_DB_Cluster {
+
+database Hdfs
+
+rectangle ID_MAP_DB {
+
+database South_map_master_db [
+<b>Master</b>
+ --
+ID - MAP 
+]
+database South_map_slave_dbS1 [
+<b>Slave 1</b>
+ --
+ID - MAP 
+]
+database South_map_slave_dbS2 [
+<b>Slave 2</b>
+--
+ID - MAP 
+]
+database South_map_slave_dbS3 [
+<b>Slave 3 </b>
+--
+ID - MAP
+]
+database South_map_slave_dbS4 [
+<b>Slave 4</b>
+--
+ID - MAP
+]
+
+South_map_master_db ==> South_map_slave_dbS1 : Stream
+South_map_master_db ==> South_map_slave_dbS2 : Stream
+South_map_master_db ==> South_map_slave_dbS3 : Stream
+South_map_master_db ==> South_map_slave_dbS4 : Stream
+
+}
+
+rectangle ID_REPO_DB {
+
+database South_repo_master_db [
+<b>Master</b>
+ --
+ID - REPO
+]
+database South_repo_slave_dbS1 [
+<b>Slave 1</b>
+ --
+ID - REPO
+]
+database South_repo_slave_dbS2 [
+<b>Slave 2</b>
+--
+ID - REPO
+]
+database South_repo_slave_dbS3 [
+<b>Slave 3 </b>
+--
+ID - MAP
+]
+database South_repo_slave_dbS4 [
+<b>Slave 4</b>
+--
+ID - MAP
+]
+
+South_repo_master_db ==> South_repo_slave_dbS1 : Stream
+South_repo_master_db ==> South_repo_slave_dbS2 : Stream
+South_repo_master_db ==> South_repo_slave_dbS3 : Stream
+South_repo_master_db ==> South_repo_slave_dbS4 : Stream
+
+}
+
+}
+
+South_ID_Repo_DB_Cluster <==> South_ID_AUTH  : <b> Store/Retrieve Data </b>
+
+rectangle South_local_backup {
+
+database ID_REPO
+database ID_MAP
+database Hdfs_back
+
+}
+
+ID_REPO <== ID_REPO_DB : Backup Database
+ID_MAP <== ID_MAP_DB : Backup Database
+Hdfs_back <== Hdfs : Backup Database
+@enduml

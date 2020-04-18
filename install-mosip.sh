@@ -12,7 +12,7 @@ cd ../mosip-infra/deployment/sandbox/
 
 : > install-mosip-sandbox.log
 
-source_file="/home/mosipiiitb/iiitb-infra/mosip-installation-list.txt"
+source_file="/home/mosipiiitb/code/iiitb-infra/mosip-installation-list.txt"
 
 filecount=1
 

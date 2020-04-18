@@ -1,0 +1,264 @@
+@startuml
+
+title Overall Deployment for Mosip - Pre Registration
+
+rectangle Central_Zone {
+
+rectangle DMZ_Secure_Zone
+
+rectangle Central_Ingress [
+INGRESS
+]
+database central_local_backup [
+local_backup
+]
+
+database Reg_Proc_db_cluster
+
+rectangle DMZ_Zone_Service
+
+Central_Ingress --> DMZ_Zone_Service
+
+}
+
+rectangle North_Zone {
+
+rectangle North_Ingress [
+INGRESS
+]
+
+rectangle North_Pre_Reg_Service [
+Pre-Reg Service
+]
+
+rectangle North_ID_Auth_Service [
+ID Auth Service
+]
+North_Ingress --> North_ID_Auth_Service
+
+North_Ingress --> North_Pre_Reg_Service
+
+database North_Pre_Reg_Backup [
+local_Backup
+]
+
+rectangle North_reg_client {
+
+agent North_Reg_Client1 [
+Reg Client
+]
+
+agent North_Reg_Client2 [
+Reg Client
+]
+
+agent North_Reg_Client3 [
+Reg Client
+]
+
+agent North_Reg_Client4 [
+Reg Client
+]
+}
+database North_pre_reg [
+Pre-reg Database Cluster
+]
+
+database North_ID_Auth [
+ID_Auth Database Cluster
+]
+
+
+North_Reg_Client4 --> North_pre_reg : Retrieve Client Data
+North_Reg_Client3 --> North_pre_reg
+North_Reg_Client2 --> North_pre_reg
+North_Reg_Client1 --> North_pre_reg
+
+}
+rectangle South_Zone {
+
+rectangle South_Ingress [
+INGRESS
+]
+
+rectangle South_Pre_Reg_Service [
+Pre-Reg Service
+]
+
+rectangle South_ID_Auth_Service [
+ID Auth Service
+]
+South_Ingress --> South_ID_Auth_Service
+
+South_Ingress --> South_Pre_Reg_Service
+
+
+database South_Pre_Reg_Backup [
+local_Backup
+]
+
+rectangle South_reg_client {
+agent South_Reg_Client1 [
+Reg Client
+]
+
+agent South_Reg_Client2 [
+Reg Client
+]
+
+agent South_Reg_Client3 [
+Reg Client
+]
+
+agent South_Reg_Client4 [
+Reg Client
+]
+}
+
+database South_pre_reg [
+Pre-reg Database Cluster
+]
+
+database South_ID_Auth [
+ID_Auth Database Cluster
+]
+
+South_Reg_Client4 --> South_pre_reg : Retrieve Client Data
+South_Reg_Client3 --> South_pre_reg 
+South_Reg_Client2 --> South_pre_reg
+South_Reg_Client1 --> South_pre_reg 
+
+
+}
+rectangle East_Zone {
+
+rectangle East_Ingress [
+INGRESS
+]
+
+rectangle East_Pre_Reg_Service [
+Pre-Reg Service
+]
+
+rectangle East_ID_Auth_Service [
+ID Auth Service
+]
+East_Ingress --> East_ID_Auth_Service
+
+East_Ingress --> East_Pre_Reg_Service
+
+database East_Pre_Reg_Backup [
+local_Backup
+]
+
+rectangle East_reg_client {
+agent East_Reg_Client1 [
+Reg Client
+]
+
+agent East_Reg_Client2 [
+Reg Client
+]
+
+agent East_Reg_Client3 [
+Reg Client
+]
+
+agent East_Reg_Client4 [
+Reg Client
+]
+}
+database East_pre_reg [
+Pre-reg Database Cluster
+]
+
+database East_ID_Auth [
+ID_Auth Database Cluster
+]
+
+East_Reg_Client4 --> East_pre_reg : Retrieve Client Data
+East_Reg_Client3 --> East_pre_reg
+East_Reg_Client2 --> East_pre_reg
+East_Reg_Client1 --> East_pre_reg
+}
+rectangle West_Zone {
+
+rectangle West_Ingress [
+INGRESS
+]
+
+rectangle West_Pre_Reg_Service [
+Pre-Reg Service
+]
+
+rectangle West_ID_Auth_Service [
+ID Auth Service
+]
+West_Ingress --> West_ID_Auth_Service
+West_Ingress --> West_Pre_Reg_Service
+
+database West_Pre_Reg_Backup [
+local_Backup
+]
+
+rectangle West_reg_client {
+agent West_Reg_Client1 [
+Reg Client
+]
+
+agent West_Reg_Client2 [
+Reg Client
+]
+
+agent West_Reg_Client3 [
+Reg Client
+]
+
+agent West_Reg_Client4 [
+Reg Client
+]
+}
+
+database West_pre_reg [
+Pre-reg Database Cluster
+]
+
+database West_ID_Auth [
+ID_Auth Database Cluster
+]
+
+West_Reg_Client4 --> West_pre_reg  : Retrieve Client Data
+West_Reg_Client3 --> West_pre_reg 
+West_Reg_Client2 --> West_pre_reg 
+West_Reg_Client1 --> West_pre_reg 
+}
+
+rectangle Global_LoadBalancer
+
+Global_LoadBalancer --> West_Ingress
+Global_LoadBalancer --> East_Ingress
+Global_LoadBalancer --> North_Ingress
+Global_LoadBalancer --> South_Ingress
+
+rectangle Remote_Backup {
+database North
+database South
+database East
+database West
+}
+
+West_Pre_Reg_Backup --> West
+East_Pre_Reg_Backup --> East
+North_Pre_Reg_Backup --> North
+South_Pre_Reg_Backup --> South
+
+cloud internet
+
+internet ==> Global_LoadBalancer :  All Request
+
+
+
+
+
+
+@enduml

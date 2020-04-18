@@ -1,0 +1,324 @@
+@startuml
+
+rectangle South_Pre_Registration {
+
+rectangle South_Pre_Reg_Service [
+Pre-Registration Service
+]
+
+rectangle South_Kernel_Service [
+Kernel Service
+]
+
+rectangle South_Server_A {
+
+node South_nodeA1 [
+<b>Pre-reg KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeA2 [
+<b>Pre-reg KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeA3 [
+<b>Pre-reg KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node South_nodeA4 [
+<b>Kernel KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+Storage Pod2 {
+
+rectangle South_A_Container2 [
+<b>Container</b>
+--
+Kernel Services
+]
+}
+
+Storage Pod {
+
+rectangle South_A_Container1 [
+<b>Container</b>
+--
+Pre-Reg App
+]
+}
+usecase South_A_Pod2 [
+pod 
+] 
+usecase South_A_Pod3 [
+pod
+]
+usecase South_A_Pod4 [
+pod
+]
+usecase South_A_Pod5 [
+pod
+] 
+usecase South_A_Pod6 [
+pod
+]
+usecase South_A_Pod7 [
+pod2
+]
+South_nodeA4 --> Pod2 : Runs
+South_nodeA4 --> South_A_Pod7 : Runs
+South_nodeA1 --> Pod : Runs
+South_nodeA1 --> South_A_Pod2 : Runs
+
+South_nodeA2 --> South_A_Pod3 : Runs
+South_nodeA2 --> South_A_Pod4 : Runs
+
+South_nodeA3 --> South_A_Pod5 : Runs
+South_nodeA3 --> South_A_Pod6 : Runs
+
+}
+
+rectangle South_Server_B {
+
+node South_nodeB1 [
+<b>Pre-reg KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeB2[
+<b>Pre-reg KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeB3 [
+<b>Pre-reg KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node South_nodeB4 [
+<b>Kernel KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+usecase South_B_P01 [ 
+pod 
+]
+usecase South_B_P02 [ 
+pod 
+]
+usecase South_B_P03 [ 
+pod 
+]
+usecase South_B_P04 [ 
+pod 
+]
+usecase South_B_P05 [ 
+pod 
+]
+usecase South_B_P06 [ 
+pod 
+]
+usecase South_B_P07 [ 
+pod2 
+]
+usecase South_B_P08 [ 
+pod2
+]
+
+
+South_nodeB1 --> South_B_P01 : Runs
+South_nodeB1 --> South_B_P02 : Runs
+
+South_nodeB2 --> South_B_P03 : Runs
+South_nodeB2 --> South_B_P04 : Runs
+
+South_nodeB3 --> South_B_P05 : Runs
+South_nodeB3 --> South_B_P06 : Runs
+
+South_nodeB4 --> South_B_P07 : Runs
+South_nodeB4 --> South_B_P08 : Runs
+
+
+}
+
+rectangle South_Server_C {
+
+node South_nodeC1 [
+<b>Pre-re KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeC2 [
+<b>Pre-reg KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+node South_nodeC3 [
+<b>Pre-reg KVM</b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+node South_nodeC4 [
+<b>Kernel KVM </b>
+--
+kubelet
+--
+kube-proxy
+--
+Docker Engine
+]
+
+
+usecase South_C_P01 [ 
+pod 
+]
+usecase South_C_P02 [ 
+pod 
+]
+usecase South_C_P03 [ 
+pod 
+]
+usecase South_C_P04 [ 
+pod 
+]
+usecase South_C_P05 [ 
+pod 
+]
+usecase South_C_P06 [ 
+pod 
+]
+usecase South_C_P07 [ 
+pod2
+]
+usecase South_C_P08 [ 
+pod2
+]
+
+South_nodeC1 --> South_C_P01 : Runs
+South_nodeC1 --> South_C_P02 : Runs
+
+South_nodeC2 --> South_C_P03 : Runs
+South_nodeC2 --> South_C_P04 : Runs
+
+South_nodeC3 --> South_C_P05 : Runs
+South_nodeC3 --> South_C_P06 : Runs
+
+South_nodeC4 --> South_C_P07 : Runs
+South_nodeC4 --> South_C_P08 : Runs
+
+}
+
+South_Pre_Reg_Service --> South_nodeA1 : <b>Pre-Reg Request</b>
+South_Pre_Reg_Service --> South_nodeA2 
+South_Pre_Reg_Service --> South_nodeA3
+South_Pre_Reg_Service --> South_nodeB1 : <b>Pre-Reg Request</b>
+South_Pre_Reg_Service --> South_nodeB2
+South_Pre_Reg_Service --> South_nodeB3
+South_Pre_Reg_Service --> South_nodeC1 : <b>Pre-Reg Request</b>
+South_Pre_Reg_Service --> South_nodeC2
+South_Pre_Reg_Service --> South_nodeC3
+South_Kernel_Service --> South_nodeA4
+South_Kernel_Service --> South_nodeB4
+South_Kernel_Service --> South_nodeC4
+}
+
+rectangle South_Pre_Reg_DB_Cluster {
+
+database Hdfs
+
+database South_master_db [
+<b>Master</b>
+ --
+ Pre-reg 
+]
+database South_slave_dbS1 [
+<b>Slave 1</b>
+ --
+ Pre-reg
+]
+database South_slave_dbS2 [
+<b>Slave 2</b>
+--
+Pre-reg
+]
+database South_slave_dbS3 [
+<b>Slave 3 </b>
+--
+Pre-reg
+]
+database South_slave_dbS4 [
+<b>Slave 4</b>
+--
+Pre-reg
+]
+}
+
+South_master_db ==> South_slave_dbS1 : Stream
+South_master_db ==> South_slave_dbS2 : Stream
+South_master_db ==> South_slave_dbS3 : Stream 
+South_master_db ==> South_slave_dbS4 : Stream
+
+rectangle South_local_backup {
+database South_Pre_Reg_Backup [
+Pre_Reg_Backup
+]
+database Hdfs_Backup
+}
+
+South_Pre_Reg_DB_Cluster ==> South_local_backup : <b>Backup Database</b>
+
+South_Pre_Registration <==> South_Pre_Reg_DB_Cluster : <b>Store / Retrieve Pre-Reg Data</b>
+
+
+@enduml
