@@ -1,19 +1,69 @@
 @startuml
 actor HumanDeployer
 control ControlBox
-entity K8MasterBox
-entity K8Pod
 
 HumanDeployer -> ControlBox : Login
 HumanDeployer -> ControlBox : co git repo
 
+ControlBox -> HDFS : Instantiate HDFS 
+activate HDFS
+
+ControlBox -> LDAP : Instantiate LDAP 
+activate LDAP
+
+ControlBox -> postgres : Instantiate postgres 
+activate postgres
+
+
 ControlBox -> K8MasterBox : Instanciate KVM (ansible action)
+
 
 ControlBox -> K8MasterBox : Install K8Master docker Image
 activate K8MasterBox
 ControlBox -> K8MasterBox : Start K8Master
-K8MasterBox -> K8Pod : Start Pod
-activate K8Pod
+
+
+ControlBox -> K8MasterBox : create kernel pod
+K8MasterBox -> Kernel : Instantiate kernel Pod 
+activate Kernel
+
+
+ControlBox -> K8MasterBox :  create pre-reg pod
+K8MasterBox -> preRegPod :Instantiate preReg Pod
+activate preRegPod
+
+
+ControlBox -> K8MasterBox :  create Id Auth pod
+K8MasterBox -> idAuthPod :Instantiate idAuth Pod
+activate idAuthPod
+
+ControlBox -> K8MasterBox :  create cron job
+K8MasterBox -> regProcBatchPod :Instantiate reg-proc batch pod (at 18:00 everyday)
+activate regProcBatchPod
+
+group Parallel regProcPod instantiation
+regProcBatchPod -> regProcPod : Instantiate reg-proc-1 pod
+activate regProcPod
+deactivate regProcPod
+
+regProcBatchPod -> regProcPod : Instantiate reg-proc-2 pod
+activate regProcPod
+deactivate regProcPod
+
+
+
+regProcBatchPod -> regProcPod : Instantiate reg-proc-n pod
+activate regProcPod
+deactivate regProcPod
+end
+deactivate regProcBatchPod
+
+deactivate idAuthPod
+deactivate preRegPod
+deactivate Kernel
+deactivate postgres
+deactivate LDAP
+deactivate HDFS
 deactivate K8MasterBox
 
 @enduml

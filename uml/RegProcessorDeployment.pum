@@ -1,0 +1,77 @@
+@startuml
+
+
+
+control ControlBox
+
+ControlBox -> Utilities : Ansible Action Docker Image for Utilities KVM
+activate Utilities
+
+control KernelServices
+Utilities->KernelServices
+activate KernelServices
+
+control RegProcDb
+Utilities -> RegProcDb
+activate RegProcDb
+control ExtABIS
+Utilities -> ExtABIS
+activate ExtABIS
+
+control ExtPostal
+Utilities -> ExtPostal
+activate ExtPostal
+
+ControlBox -> DmzZone: Ansible Action Docker Image for DmzZone KVM
+activate DmzZone
+
+control DmzKernel
+DmzZone -> DmzKernel
+activate DmzKernel
+
+
+control PacketRecieverStage
+DmzZone ->PacketRecieverStage: Start Packet Reciever Stage
+activate PacketRecieverStage
+control CommonCamel
+DmzZone ->CommonCamel:  Start CommonCamel Service
+activate CommonCamel
+control RSS
+DmzZone ->RSS: Start Registration  Status Service
+activate RSS
+
+ControlBox -> SecureZone  : Ansible Action Docker Image for SecureZone KVM
+activate SecureZone
+
+control Stage_1
+SecureZone ->Stage_1
+
+activate Stage_1
+control Stage_N
+SecureZone -> Stage_N
+activate Stage_N
+
+control CCBS
+SecureZone -> CCBS
+activate CCBS
+control RequestHandler
+SecureZone -> RequestHandler
+activate RequestHandler
+
+control ExtIntService
+SecureZone ->ExtIntService
+activate ExtIntService
+
+control RegTrxService
+SecureZone ->RegTrxService
+activate RegTrxService
+
+control PrintService
+SecureZone -> PrintService
+activate PrintService
+
+control BioDeDup
+SecureZone ->BioDeDup
+activate BioDeDup
+
+@enduml

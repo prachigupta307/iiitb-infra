@@ -1,0 +1,7 @@
+DEVICE=<ETH_NAME>
+TYPE=Ethernet
+BOOTPROTO=dhcp
+ONBOOT=yes
+BRIDGE=virbr0
+NAME=<ETH_NAME>
+
