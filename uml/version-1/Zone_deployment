@@ -1,0 +1,137 @@
+@startuml
+
+rectangle South_zone {
+
+rectangle Ingress [
+INGRESS 
+]
+
+note bottom of Ingress
+Single Entry point to Zone/Cluster.
+Routes the traffic to appropriate
+service.
+end note
+
+rectangle South_Kube_Masters {
+
+node South_master1 [
+<b>Master 1</b>
+--
+Api Manager
+--
+Controller - Manager
+--
+Scheduler (L)
+--
+etcd
+]
+
+node South_master2 [
+<b>Master 2</b>
+--
+Api Manager
+--
+Controller - Manager (L)
+--
+Scheduler
+--
+etcd
+]
+
+node South_master3 [
+<b>Master 3</b>
+--
+Api Manager
+--
+Controller - Manager
+--
+Scheduler
+--
+etcd (L)
+]
+
+}
+
+rectangle South_Kubernetes_Load_Balancer [
+Kubernetes_Load_Balancer
+]
+
+South_master1 <-- South_Kubernetes_Load_Balancer 
+South_master2 <-- South_Kubernetes_Load_Balancer
+South_master3 <-- South_Kubernetes_Load_Balancer : Kubernetes Request / Message
+
+rectangle South_Kube_Worker {
+
+rectangle Pre_registration_Service
+rectangle Kernel_Service
+rectangle ID_Auth_Service
+rectangle ID_Repository_Service
+
+rectangle Server_A
+rectangle Server_B
+rectangle Server_C
+
+Pre_registration_Service ==> Server_A
+Pre_registration_Service ==> Server_B
+Pre_registration_Service ==> Server_C
+
+Kernel_Service ==> Server_A
+Kernel_Service ==> Server_B
+Kernel_Service ==> Server_C
+
+ID_Auth_Service ==> Server_A
+ID_Auth_Service ==> Server_B
+ID_Auth_Service ==> Server_C
+
+ID_Repository_Service ==> Server_A
+ID_Repository_Service ==> Server_B
+ID_Repository_Service ==> Server_C
+
+
+}
+
+South_Kube_Worker ==> South_Kubernetes_Load_Balancer : Kubernetes Request / Message
+South_Kube_Masters ==> South_Kube_Worker : Kubernetes Message / Action
+
+database South_Pre_Reg_DB_Cluster [
+<b>Server D </b>
+--
+Pre-Registration DB
+]
+
+database South_ID_Repo_DB_Cluster [
+<b> Server E </b>
+--
+ID REPO DB
+]
+
+database South_local_backup [
+<b> Server F </b>
+--
+Local Backup
+]
+
+database South_Common [
+<b> Server G </b>
+--
+Mosip Common DB
+]
+
+South_Pre_Reg_DB_Cluster <==> South_Kube_Worker  : Store / Retrieve Data
+South_ID_Repo_DB_Cluster <==> South_Kube_Worker  : Store / Retrieve Data
+
+
+South_local_backup <== South_Pre_Reg_DB_Cluster  : Backup Database
+South_local_backup <== South_ID_Repo_DB_Cluster : Backup Database
+
+
+
+
+
+Pre_registration_Service <-- Ingress
+ID_Auth_Service <-- Ingress
+
+
+
+
+@enduml
