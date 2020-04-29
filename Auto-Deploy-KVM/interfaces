@@ -3,7 +3,7 @@ iface lo inet loopback
 
 auto virbr0
 iface virbr0 inet dhcp
-	dhcp_ports <ETH_NAME>
-	dhcp_stp off
-	dhcp_fd 0
-	dchp_maxwait 0
+	bridge_ports <ETH_NAME>
+	bridge_stp off
+	bridge_fd 0
+	bridge_maxwait 0
