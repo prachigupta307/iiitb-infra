@@ -1,7 +1,7 @@
 
 
 hostIp=$(hostname -I | awk '{print $1}')
-systemctl start httpd
+systemctl start apache2
 
 VM_NAME="testvm1"
 RAM=1024
