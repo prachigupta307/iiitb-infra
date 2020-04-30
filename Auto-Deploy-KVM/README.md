@@ -3,7 +3,7 @@
 Mainly we have two scripts
 
 1. configure_network.sh
-2. install_run.sh
+2. install_vm.sh
 
 Run both scripts with sudo
 
