@@ -45,7 +45,7 @@ ETH_INTERFACE_NAME=$(ip route | awk 'NR==1{print $5}')
 	hostIp=$(hostname -I | awk '{print $1}')
 
 
-	if [ $(ls interfaces_backup | wc -l) == "0" ]
+	if [ ! -e /etc/network/interfaces_backup ]
 	then
 		cp /etc/network/interfaces /etc/network/interfaces_backup
 	fi

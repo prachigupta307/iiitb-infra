@@ -102,8 +102,10 @@ Tried to create a bridge(named br0) and add devices to a bridge using the follow
 $ sudo brctl add br0
 $ sudo brctl addif br0 wlp3s0
 ```
-resulted in loss of network on my system 
-I brought back network using the command
+resulted in loss of network on our system 
+we brought back network using the command.
+
+We lose the network connection because network bridging will not work when the physical network device (e.g., eth1) used for bridging is a wireless device, as most wireless device drivers do not support bridging!
 
 ```
 $ brctl show
