@@ -1,56 +1,68 @@
 #!bin/bash
 
+#PRE-REQUISITES
 
+#Clone iiitb-infra
+#install git
+#internet
 
-yum update -y
+echo "===========================Update start==========================="
+apt-get update -y
 
+echo "===========================Update end==========================="
 
 # Installing apache web server
 
-yum install -y httpd
+echo "===========================Apache installation start==========================="
+apt-get install -y apache2
 
-firewall-cmd --permanent --add-service=http
-
-firewall-cmd --permanent --add-service=https
-
-firewall-cmd --reload
-
+echo "===========================Apache installation completed==========================="
+ufw allow 'Apache'
 
 mkdir /var/www/html/install/
 
 cp ks.cfg /var/www/html/install/
 
-systemctl start httpd
+echo "===========================Apache service start==========================="
+systemctl start apache2 
 
 
 # installing KVM packages
-yum install virt-install qemu-kvm libvirt libvirt-python  libguestfs-tools virt-manager  -y
+echo "===========================KVM installation start==========================="
+apt install -y qemu qemu-kvm libvirt-bin  bridge-utils  virt-manager
+echo "===========================KVM installation completed==========================="
+#Configuring bridge
+
+echo "===========================Configuring bridge started==========================="
+
+ETH_INTERFACE_NAME=$(ip route | awk 'NR==1{print $5}')
+
+	if [ $ETH_INTERFACE_NAME == 'virbr0' ] 
+	then 
+		echo "Bridge is already configured."
+		exit
+	fi
+	hostIp=$(hostname -I | awk '{print $1}')
 
 
-ETH_NAME=$(ip route | awk 'NR==1{print $5}')
+	if [ $(ls interfaces_backup | wc -l) == "0" ]
+	then
+		cp /etc/network/interfaces /etc/network/interfaces_backup
+	fi
+	cp interfaces /etc/network/interfaces
+	sed -i "s/<ETH_NAME>/$ETH_INTERFACE_NAME/" /etc/network/interfaces
 
-if [ $ETH_NAME == 'virbr0' ] 
-then 
-	echo "Remove the BRIDGE=virbr0 line from /etc/sysconfig/network-scripts/ifcfg-"$ETH_NAME
-	exit
-fi
+echo "===========================Configuring bridge completed==========================="
 
-GATEWAY=$(ip route | awk 'NR==1{print $3}')
-ETH_FILE="ifcfg-"$ETH_NAME
-
-hostIp=$(hostname -I | awk '{print $1}')
-
-cat ifcfg-virbr0 > /etc/sysconfig/network-scripts/ifcfg-virbr0
-cat ifcfg-eth > /etc/sysconfig/network-scripts/$ETH_FILE
-
-sed -i "s/<IPADDR>/$hostIp/" /etc/sysconfig/network-scripts/ifcfg-virbr0
-sed -i "s/<GATEWAY>/$GATEWAY/" /etc/sysconfig/network-scripts/ifcfg-virbr0
-sed -i "s/<ETH_NAME>/$ETH_NAME/" /etc/sysconfig/network-scripts/$ETH_FILE
-
-
-
+echo "===========================network restart==========================="
 systemctl restart network
 
+echo "Changes reflects only when you restart the system."
+echo "Do you want to restart your system?(y/n)"
+read answer
 
-shutdown -r
+if [ $answer == "y" -o $answer == "Y" ]
+then
+	shutdown -r now
+fi
 
