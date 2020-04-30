@@ -54,8 +54,12 @@ ETH_INTERFACE_NAME=$(ip route | awk 'NR==1{print $5}')
 
 echo "===========================Configuring bridge completed==========================="
 
-echo "===========================network restart==========================="
-systemctl restart network
+echo "===========================Enabling the IPV4 Forwarding==========================="
+
+echo net.ipv4.ip_forward = 1 | tee /usr/lib/sysctl.d/60-libvirtd.conf
+/sbin/sysctl -p /usr/lib/sysctl.d/60-libvirtd.conf
+
+echo "=============================IPV4 Forwarding Completed============================"
 
 echo "Changes reflects only when you restart the system."
 echo "Do you want to restart your system?(y/n)"
@@ -65,4 +69,3 @@ if [ $answer == "y" -o $answer == "Y" ]
 then
 	shutdown -r now
 fi
-
