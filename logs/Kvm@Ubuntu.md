@@ -1,4 +1,4 @@
-# Installing KVM and Configuring	
+# Installing KVM on Ubuntu	
 
 This is the log of Installing KVM and Configuring it.
 
