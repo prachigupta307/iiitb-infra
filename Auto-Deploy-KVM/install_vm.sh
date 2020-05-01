@@ -25,20 +25,19 @@ then
 	exit
 fi
 
-virt-install  	--network bridge:virbr0 \
-		--name $VM_NAME \
-		--os-variant=centos7.0 \
-		--ram=$RAM \
-		--vcpus=$CPUS  \
- 		--disk path=/var/lib/libvirt/images/$IMAGE_NAME,format=qcow2,bus=virtio,size=$SIZE \
-  		--graphics none \
-	      	--location=$ISO_PATH \
-  		--extra-args="console=tty0 console=ttyS0,115200"  -x ks=http://$hostIp/install/ks.cfg \
-		--noautoconsole \
-		--check all=off 
-iterate=1
+iterate=0
 while [ $iterate -lt $number_of_vms ]
 do
         iterate=`expr $iterate + 1`
-        virt-clone --original $VM_NAME --name $vm_prefix_name$iterate --file /var/libe/libvirt/images/$vm_prefix_name$iterate"-os.qcow2"
+	virt-install  	--network bridge:virbr0 \
+			--name $vm_prefix_name$iterate \
+			--os-variant=centos7.0 \
+			--ram=$RAM \
+			--vcpus=$CPUS  \
+ 			--disk path=/var/lib/libvirt/images/$vm_prefix_name$iterate,format=qcow2,bus=virtio,size=$SIZE \
+  			--graphics none \
+		      	--location=$ISO_PATH \
+  			--extra-args="console=tty0 console=ttyS0,115200"  -x ks=http://$hostIp/install/ks.cfg \
+			--noautoconsole \
+			--check all=off 
 done
