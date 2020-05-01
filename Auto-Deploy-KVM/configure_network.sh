@@ -21,7 +21,6 @@ ufw allow 'Apache'
 
 mkdir /var/www/html/install/
 
-cp ks.cfg /var/www/html/install/
 
 echo "===========================Apache service start==========================="
 systemctl start apache2 
