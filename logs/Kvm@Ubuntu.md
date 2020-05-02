@@ -172,7 +172,7 @@ iface virbr0 inet dhcp
    bridge_ports ens33
    bridge_stp off
    bridge_fd 0
-   bridge_maxwait 
+   bridge_maxwait 0
 ```
 ##### Note:
 1. The bridge_ports should be modified according to the default network inteface.
