@@ -5,9 +5,9 @@ Mainly we have two scripts
 1. configure_network.sh
 2. install_vm.sh
 
-##Note: Run both scripts with sudo privileges
+## Note: Run both scripts with sudo privileges
 
-##Pre-requisites to run configure_network.sh
+## Pre-requisites to run configure_network.sh
 
 1. Install git.
 2. Pull iiitb-infra repository from github.com/mosip-iiitb.
