@@ -11,6 +11,18 @@ number_of_vms=$1
 vm_prefix_name=$2
 hw_cfg_file_path=$3
 
+if [ ! $# -eq 3 ]
+then
+	echo "Provide all inputs needed."
+	echo "Syntax: sh install_vm.sh <NumberOfVMS> <PrefixNameForVM> <VM-Hardware-config-file-path>"
+	exit
+fi
+
+if [ ! -e $hw_cfg_file_path ]
+then
+	echo "Provide the correct path for vm hardware configuration file."$#
+	exit
+fi
 CPUS=$( egrep "<CPUS>" $hw_cfg_file_path | awk '{ print $2 }')
 RAM=$( egrep "<RAM>" $hw_cfg_file_path | awk '{ print $2 }')
 SIZE=$( egrep "<SIZE>" $hw_cfg_file_path | awk '{ print $2 }')
