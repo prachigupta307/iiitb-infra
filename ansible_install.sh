@@ -12,3 +12,23 @@ echo "<=======================uncommenting host_key_checking===================>
 sed -i "/host_key_checking = False/ s/# *//"  ./ansible.cfg 
 
 echo "<====================uncommenting host_key_checking done=================>"
+
+echo "<========================kvm installation & setup========================>"
+
+ansible-playbook  ./ansible_playbooks/kvm_install_and_bridge_creation.yml
+
+echo "<====================kvm installation & setup done========================>"
+
+echo "<=================restart require to reflect changes======================>"
+
+echo "You want to restart system:"  
+read choice
+
+if [ "$choice" = "y" ]; then
+  sudo shutdown –r now
+elif [ "$choice" = "Y" ]; then
+  sudo shutdown –r now
+fi
+
+
+echo "<=============================Restarting====================================>"
