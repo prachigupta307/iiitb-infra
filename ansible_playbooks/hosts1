@@ -1,0 +1,5 @@
+[all]
+192.168.122.57 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin
+192.168.122.9 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin
+192.168.122.31 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin
+192.168.122.251 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=admin

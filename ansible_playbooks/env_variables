@@ -1,0 +1,6 @@
+
+#enter prefix of the virtual machine (if prefix=vm than name is like vm1,vm2,vm3,..)
+prefix_of_vm: test
+
+#enter how many number of vm you need to create
+no_of_vm: 4

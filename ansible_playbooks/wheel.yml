@@ -1,0 +1,42 @@
+---
+ - hosts: all
+   remote_user: centos
+   become: true
+   tasks:
+     - name: Make sure we have a 'wheel' group
+       group:
+         name: wheel
+         state: present
+
+     - name: Allow 'wheel' group to have passwordless sudo
+       lineinfile:
+         dest: /etc/sudoers
+         state: present
+         regexp: '^%wheel'
+         line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+         validate: 'visudo -cf %s'
+
+     - name: Add sudoers users to wheel group
+       user: name=centos groups=wheel append=yes state=present createhome=yes
+
+
+     - name: Set up authorized keys for the centos user
+       authorized_key: user=centos key="{{item}}"
+       with_file:
+         - /home/abhishek/.ssh/id_rsa.pub
+ 
+#if you want to restrict root login just uncomment this line 
+    # - name: Disable Root Login
+     #  lineinfile:
+     #      dest=/etc/ssh/sshd_config
+     #      regexp='^PermitRootLogin'
+     #      line="PermitRootLogin no"
+     #      state=present
+     #      backup=yes
+     #  notify:
+     #   - restart ssh
+   handlers:
+    - name: restart ssh
+      service:
+       name=sshd
+       state=restarted

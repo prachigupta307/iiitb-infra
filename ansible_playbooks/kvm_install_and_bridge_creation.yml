@@ -1,0 +1,12 @@
+---
+- name: Creating the number of kvm defined by the user in env_variables file
+  hosts: 127.0.0.1
+  connection: local
+  become: true
+  vars_files:
+    - "./env_variables"
+
+  tasks:
+     - name: Run install_vm.sh script
+       shell: sh ./../Auto-Deploy-KVM/configure_network.sh
+
