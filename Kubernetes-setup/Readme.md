@@ -6,20 +6,20 @@ This repository contains setup files to install and configure a multi-master Kub
 
 1) The script's assume all the nodes runs on **ubuntu operating system**.
 
-2) **Tools: Curl, Openssh-server** has to be installed on all the nodes. Client machine's authorized ssh-key has to be copied to all the nodes root user.
+2) **Tools: Curl, Openssh-server** has to be installed on all the nodes. Client machine's ssh-key has to be copied to all the nodes root user authorized keys.
 
 3) **Minimum requirement :**
-   * Three master Node
-   * one load balancer
+   * Three master node
+   * one load balancer node
    * one worker node
    
 4) Ip address of the nodes has to be updated in **Ipaddress folder**. Each line of the text contain a single IP address of the respective nodes.
 
-   * Master.txt - contains the IP address of all the master nodes. SSH-key of the 1st IP address(Node) in this file has to copied to all the other nodes root user. 
+   * Master.txt - contains the IP address of all the nodes which will act as master nodes. SSH-key of the 1st IP address(Node) in this file has to copied to all the other nodes root user authorized key. 
    
-   * kubelb.txt - contains a single line, IP address of the API Server - Load Balancer.
+   * kubelb.txt - contains a single line, IP address of the node which will act as Load Balancer .
    
-   * worker.txt - contains IP address of all the worker nodes.
+   * worker.txt - contains IP address of all the nodes which will act as worker nodes.
 
 # Steps
 
@@ -35,7 +35,7 @@ This repository contains setup files to install and configure a multi-master Kub
    cd iiitb-infra/Kubernetes-setup
    ```
    
-3) Update the IP address in **Ipaddress folder** as mentioned above. This step is very important 
+3) Update the IP address in **Ipaddress folder** as mentioned above. This step is very important.
 
 4) Go to root
 
