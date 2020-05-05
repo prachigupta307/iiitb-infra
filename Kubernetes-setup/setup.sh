@@ -343,13 +343,6 @@ scheduler: {}"
 
 done < $master 
 
-echo "Copy the Kubeadm join command"
-sleep 45
-
-#Joining the worker nodes to master node.
-
-#----------------------------INCOMPLETE-----------------------#
-
 #Configuring kubectl on the client machine
 
 echo "\n***************************************************"
