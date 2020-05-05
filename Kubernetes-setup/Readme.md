@@ -48,3 +48,4 @@ This repository contains setup files to install and configure a multi-master Kub
    ```
    sh setup.sh
    ```
+6) Once all the master node's are initialized, it will provide the token to join the worker node. Kindly copy and paste the command in all the worker nodes.
