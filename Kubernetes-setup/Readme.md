@@ -19,4 +19,6 @@ This repository contains setup files to install and configure a multi-master Kub
 
 1. Clone this repository
 '''
+git clone https://github.com/mosip-iiitb/iiitb-infra.git
+'''
 
