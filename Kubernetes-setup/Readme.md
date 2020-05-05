@@ -17,8 +17,20 @@ This repository contains setup files to install and configure a multi-master Kub
 
 # Steps
 
-
-   '''
+1) Clone this repository
+   ```
    git clone https://github.com/mosip-iiitb/iiitb-infra.git
-   '''
-
+   ```
+2) Move to the kubernetes directory
+   ```
+   cd iiitb-infra/Kubernetes-setup
+   ```
+3) Update the IP address in Ipaddress folder as mentioned above
+4) Go to root
+   ```
+   sudo su
+   ```
+5) Start the setup by running the below command.
+   ```
+   sh setup.sh
+   ```
