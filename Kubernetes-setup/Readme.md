@@ -11,7 +11,7 @@ This repository contains setup files to install and configure a multi-master Kub
    * one load balancer
    * one worker node
 4) Ip address of the nodes has to be updated in Ipaddress folder. Each line of the text contain a single IP address of the respective nodes.
-        * Master.txt - contains the IP address of all the master nodes. SSH-key of the 1st IP address(Node) in this file has to copied to all the other nodes root user. 
-        * kubelb.txt - contains a single line, IP address of the API Server - Load Balancer.
-        * worker.txt - contains IP address of all the worker nodes.
+   * Master.txt - contains the IP address of all the master nodes. SSH-key of the 1st IP address(Node) in this file has to copied to all the other nodes root user. 
+   * kubelb.txt - contains a single line, IP address of the API Server - Load Balancer.
+   * worker.txt - contains IP address of all the worker nodes.
         
