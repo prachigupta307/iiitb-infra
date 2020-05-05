@@ -49,9 +49,9 @@ This repository contains setup files to install and configure a multi-master Kub
    sh setup.sh
    ```
 6) Join all the worker nodes to the master
-   '''
+   ```
    sh workerjoin.sh
-   '''
+   ```
 
 7) Run the following command to check if the pod's for network is deployed properly.
   
