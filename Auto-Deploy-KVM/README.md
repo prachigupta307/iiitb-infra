@@ -5,7 +5,7 @@ Mainly we have two scripts
 1. configure_network.sh
 2. install_vm.sh
 
-## Note: Run both scripts with sudo privileges
+### Note: Run both scripts with sudo privileges
 
 ## Pre-requisites to run configure_network.sh
 
@@ -30,6 +30,7 @@ Mainly we have two scripts
 
 ## How to run install_vm.sh
 
+### Note: change the working directory of console to iiitb-infra/Auto-Deploy-KVM
 ```
 sh install_vm.sh <NumberOfVMS> <PrefixNameForVM> <VM-Hardware-config-file-path>
 
