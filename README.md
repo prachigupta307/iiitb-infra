@@ -13,7 +13,7 @@ IIITB deployment infrastructure
 Step 2: *Before going to next step go to env_variables/kvm_env_variables and edit prefix(names of vms you want to give) and            number of vms you want.
         *And also go to env_variables/kubernetes_env_variables and give no of masters, workers you want to create.
         
-        ![github pic](/images/prachi.png)
+        ![github pic](IMG-20191027-WA0014.jpg)
  
 Step 3: create a folder under Auto-Deploy-KVM osmedia and keep centos image inside that.
  
