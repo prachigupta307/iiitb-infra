@@ -2,7 +2,7 @@
 IIITB deployment infrastructure
 **All the actions performed in root privileges
 
-- Step 1: Execute ansible_&_kvm_install.sh
+> Step 1: Execute ansible_&_kvm_install.sh
         After successful execution it will
        a) install ansible on host machine
        b) do host checking to false in ansible.cfg file
