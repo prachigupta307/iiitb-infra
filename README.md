@@ -15,7 +15,7 @@ Step 2: *Before going to next step go to env_variables/kvm_env_variables and edi
         
         
         
- step 3:       ![github pic](https://github.com/prachigupta307/iiitb-infra/blob/master/git.png)
+ step 3:       ![github pic](/git.png)
         
         
  
