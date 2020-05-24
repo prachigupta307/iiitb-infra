@@ -14,7 +14,7 @@ Step 2: *Before going to next step go to env_variables/kvm_env_variables and edi
         *And also go to env_variables/kubernetes_env_variables and give no of masters, workers you want to create.
         
         
-        ![github pic](git.png)
+        ![github pic](/git.png)
  
 Step 3: create a folder under Auto-Deploy-KVM osmedia and keep centos image inside that.
  
